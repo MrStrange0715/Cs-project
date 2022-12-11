@@ -4,36 +4,17 @@ import smtplib
 from email.message import EmailMessage
 import os
 import imghdr
-import pandas
 
 check = False
-
-def browse():
-    path = filedialog.askopenfilename(initialdir='c:/', title='Select Excel File')
-
-    if path == '':
-        messagebox.showerror('Error','Please select an excel file')
-
-    else:
-        data = pandas.read_excel(path)
-        if 'Email' in data.columns:
-            emails = list(data['Email'])
-
-def button_check():
-    if choice.get() == 'multiple':
-        browseButton.config(state=NORMAL)
-        toEntryField.config(state='readonly')
-
-    if choice.get() == 'single':
-        browseButton.config(state=DISABLED)
-        toEntryField.config(state=NORMAL)
-
-
         
 def iexit():
     result = messagebox.askyesno('Notification', 'Do you want to exit?')
     if result:
+        f = open('credentials.txt', 'w')
+        f.close()
+
         root.destroy()
+        
     else:
         pass
 
@@ -91,17 +72,6 @@ def login():
     Button(root1, text='LOGIN', font=('Chesna Grotesk', 18), cursor='hand2', bg='salmon', fg='black', command=save).place(x=240, y=265)
     Button(root1, text='CLEAR', font=('Chesna Grotesk', 18), cursor='hand2', bg='salmon', fg='black', command=clear1).place(x=360, y=265)
 
-    '''
-    f = open('credentials.txt', 'r')
-    for i in f:
-        credentials = i.split(',')
-
-    fromEntryField.insert(0, credentials[0])
-    passwordEntryField.insert(0, credentials[1])
-    '''
-
-
-
     
     root1.mainloop()
 
@@ -146,8 +116,8 @@ def send_email():
         messagebox.showerror('Error', 'All Fields Are Required', parent=root)
 
     else:
-        if choice.get() == 'single':
-            sendingEmail(toEntryField.get(), subjectEntryField.get(), textarea.get(1.0, END))
+        sendingEmail(toEntryField.get(), subjectEntryField.get(), textarea.get(1.0, END))
+
 
 def attachment():
     global filename, filetype, filepath, check
@@ -180,37 +150,15 @@ Label(titleFrame, width=20, bg='salmon').grid(row=0, column=2)
 loginImage = PhotoImage(file='login.png')
 Button(titleFrame, image=loginImage, bd=0, bg='salmon', cursor='hand2', activebackground='salmon', height='100px', width='100px', command=login).grid(row=0, column=3)
 
-#Label(root, height=1, bg='gray10').grid(row=1, column=0)
-
-chooseFrame = Frame(root, bg='gray10')
-chooseFrame.grid(row=1, column=0, pady=10)
-choice = StringVar()
-
-singleRadioButton = Radiobutton(chooseFrame, text='Single', font=('Chesna Grotesk', 20), variable=choice, value='single', bg='gray10', fg='salmon', activebackground='gray10', command=button_check)
-singleRadioButton.grid(row=0, column=0, padx=20)
-
-multipleRadioButton = Radiobutton(chooseFrame, text='Multiple', font=('Chesna Grotesk', 20), variable=choice, value='multiple', bg='gray10', fg='salmon', activebackground='gray10', command=button_check)
-multipleRadioButton.grid(row=0, column=1, padx=20)
-
-choice.set('single')
-
-#Label(root, height=1, bg='gray10').grid(row=3, column=0)
 
 toLabelFrame = LabelFrame(root, text='To (Email address)', font=('Chesna Grotesk', 16), bd=5, fg='salmon', bg='gray10')
-toLabelFrame.grid(row=2, column=0, padx=100)
+toLabelFrame.grid(row=2, column=0, pady=20)
 
 toEntryField = Entry(toLabelFrame, font=('Chesna Grotesk', 11), width=50)
 toEntryField.grid(row=0, column=0)
 
-browseImage = PhotoImage(file='browse1.png')
-
-browseButton = Button(toLabelFrame, text=' Browse', image=browseImage, compound=LEFT, font=('arial', 12, 'bold'), cursor='hand2', bd=0, fg='salmon', bg='gray10', activebackground='gray10', state=DISABLED, command=browse)
-browseButton.grid(row=0, column=1, padx=20)
-
-#Label(root, height=1, bg='gray10').grid(row=5, column=0)
-
 subjectLabelFrame = LabelFrame(root, text='Subject', font=('Chesna Grotesk', 16), bd=5, fg='salmon', bg='gray10')
-subjectLabelFrame.grid(row=3, column=0, pady=10)
+subjectLabelFrame.grid(row=3, column=0, pady=20)
 
 subjectEntryField = Entry(subjectLabelFrame, font=('Chesna Grotesk', 11), width=50)
 subjectEntryField.grid(row=0, column=0)
@@ -220,11 +168,10 @@ emailLabelFrame.grid(row=4, column=0, padx=20)
 
 Button(emailLabelFrame, bd=0, fg='gray10', bg='gray10', activebackground='gray10').grid(row=0, column=0)
 
-
 attachImage = PhotoImage(file='attachments5.png')
 Button(emailLabelFrame, text='Attachment', image=attachImage, compound=LEFT, font=('arial', 12, 'bold'),  cursor='hand2', bd=0, fg='salmon', bg='gray10', activebackground='gray10', command=attachment).grid(row=0, column=1)
 
-textarea = Text(emailLabelFrame, font=('Chesna Grotesk', 12,), height=8)
+textarea = Text(emailLabelFrame, font=('Chesna Grotesk', 12,), height=9)
 textarea.grid(row=1, column=0, columnspan=3)
 
 sendImage = PhotoImage(file='send4.png')
@@ -250,59 +197,4 @@ failedLabel.place(x=280, y=560)
 
 
 
-
-
 root.mainloop()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
