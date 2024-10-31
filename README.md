@@ -12,13 +12,14 @@
 - **Responsive UI**: Intuitive and user-friendly design, built to simplify navigation.
 - **Secure Authentication**: Uses secure authentication to fetch emails from your inbox.
 
-### Prerequisites
+
+## Prerequisites
 
 - Python 3.x
 - Email client credentials (e.g., for Gmail, you’ll need an app password and IMAP enabled)
 - Required libraries listed in `requirements.txt`
 
-### Clone Repository
+## Clone Repository
 
 ```bash
 git clone https://github.com/MrStrange0715/email-viewer-dashboard.git
@@ -57,6 +58,6 @@ python main.py
 - **Email Categorization**: Auto-categorize emails into folders such as Promotions, Updates, etc.
 - **Notifications**: Real-time email notifications.
 
-##Contributing
+## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to improve this project.
