@@ -1,4 +1,4 @@
-Email Viewer Dashboard 📧
+#Email Viewer Dashboard 📧
 This project is an Email Viewer Dashboard developed in Python, offering a straightforward interface to manage and view emails. It fetches emails from a specified account, organizes them, and displays key details in a dashboard format, making it easier to navigate and manage your inbox.
 
 Features
